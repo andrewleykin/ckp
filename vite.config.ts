@@ -11,4 +11,5 @@ export default defineConfig({
     },
   },
   plugins: [svgLoader({svgo: false}),vue()],
+  base: '/ckp/'
 })
