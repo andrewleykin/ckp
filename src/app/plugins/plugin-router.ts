@@ -26,7 +26,7 @@ export const routes: RouteRecordRaw[] = [
 
 export const withRouter = (app: App): void => {
   const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory(import.meta.env.BASE_URL),
     routes,
     scrollBehavior(_, __, savedPosition) {
       return savedPosition || { top: 0 };
