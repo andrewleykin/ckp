@@ -1,1 +1,0 @@
-import{U as e}from"./ui-typography-CacwNUWw.js";import{d as a,c as t,b as o,w as r,u as n,o as s,f as c}from"./index-B0rgQeMO.js";const f=a({__name:"block",setup(p){return(i,l)=>(s(),t("main",null,[o(n(e),{variant:"HeadlineH3"},{default:r(()=>[c("Блокировка выданного номера")]),_:1})]))}});export{f as default};

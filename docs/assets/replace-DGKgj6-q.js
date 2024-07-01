@@ -1,1 +1,0 @@
-import{U as e}from"./ui-typography-CacwNUWw.js";import{d as a,c as t,b as r,w as o,u as n,o as s,f as c}from"./index-B0rgQeMO.js";const f=a({__name:"replace",setup(p){return(i,l)=>(s(),t("main",null,[r(n(e),{variant:"HeadlineH3"},{default:o(()=>[c("Замена выданного номера")]),_:1})]))}});export{f as default};
