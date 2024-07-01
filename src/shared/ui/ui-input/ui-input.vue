@@ -154,6 +154,9 @@ watch(
 
 .label {
   margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .input-wrapper {
