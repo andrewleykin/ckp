@@ -1,0 +1,1 @@
+import{U as e}from"./ui-typography-CacwNUWw.js";import{d as a,c as t,b as n,w as o,u as r,o as s,f as c}from"./index-B0rgQeMO.js";const l=a({__name:"payment",setup(p){return(m,i)=>(s(),t("main",null,[n(r(e),{variant:"HeadlineH3"},{default:o(()=>[c("Оплата SIM карт")]),_:1})]))}});export{l as default};

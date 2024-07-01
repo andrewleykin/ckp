@@ -1,0 +1,386 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/v1/simcard/validate": {
+      "put": {
+        "tags": [
+          "simcard-controller"
+        ],
+        "operationId": "validateSim",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimValidationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimValidationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/simcard/replace": {
+      "put": {
+        "tags": [
+          "simcard-controller"
+        ],
+        "operationId": "replace",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplaceSimcardDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/simcard/block": {
+      "put": {
+        "tags": [
+          "simcard-controller"
+        ],
+        "operationId": "block",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BlockSimcardDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/simcard/register": {
+      "post": {
+        "tags": [
+          "simcard-controller"
+        ],
+        "operationId": "register",
+        "parameters": [
+          {
+            "name": "registrationRequest",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RegistrationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/payment/tinkoff": {
+      "post": {
+        "tags": [
+          "tinkoff-payment-controller"
+        ],
+        "operationId": "payTinkoff",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TinkoffPaymentResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/payment/tinkoff/{paymentId}/confirm": {
+      "get": {
+        "tags": [
+          "tinkoff-payment-controller"
+        ],
+        "operationId": "confirmTinkoff",
+        "parameters": [
+          {
+            "name": "paymentId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SimIccModel": {
+        "type": "object",
+        "properties": {
+          "simNumber": {
+            "type": "string"
+          },
+          "iccLastFourDigits": {
+            "type": "string"
+          }
+        }
+      },
+      "SimValidationRequest": {
+        "type": "object",
+        "properties": {
+          "simcards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SimIccModel"
+            }
+          }
+        }
+      },
+      "PartnerView": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "defaultPaymentType": {
+            "type": "string",
+            "enum": [
+              "TINKOFF_ACQUIRING",
+              "MANUAL"
+            ]
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "inn": {
+            "type": "string"
+          },
+          "kpp": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          }
+        }
+      },
+      "SimErrorModel": {
+        "type": "object",
+        "properties": {
+          "simNumber": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      },
+      "SimValidationResponse": {
+        "type": "object",
+        "properties": {
+          "valid": {
+            "type": "boolean"
+          },
+          "simcardErrors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SimErrorModel"
+            }
+          },
+          "error": {
+            "type": "string"
+          },
+          "partner": {
+            "$ref": "#/components/schemas/PartnerView"
+          }
+        }
+      },
+      "ReplaceSimcardDto": {
+        "required": [
+          "iccEnd",
+          "inn",
+          "newNumber",
+          "number"
+        ],
+        "type": "object",
+        "properties": {
+          "inn": {
+            "type": "string"
+          },
+          "number": {
+            "maxLength": 11,
+            "minLength": 11,
+            "type": "string"
+          },
+          "newNumber": {
+            "maxLength": 11,
+            "minLength": 11,
+            "type": "string"
+          },
+          "iccEnd": {
+            "maxLength": 4,
+            "minLength": 4,
+            "type": "string"
+          }
+        }
+      },
+      "BlockSimcardDto": {
+        "required": [
+          "inn",
+          "number"
+        ],
+        "type": "object",
+        "properties": {
+          "number": {
+            "maxLength": 11,
+            "minLength": 11,
+            "type": "string"
+          },
+          "inn": {
+            "type": "string"
+          }
+        }
+      },
+      "ClientDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "bossName": {
+            "type": "string"
+          },
+          "accountableName": {
+            "type": "string"
+          },
+          "accountablePhoneNumber": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "inn": {
+            "type": "string"
+          }
+        }
+      },
+      "RegistrationRequest": {
+        "type": "object",
+        "properties": {
+          "simcards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SimIccModel"
+            }
+          },
+          "client": {
+            "$ref": "#/components/schemas/ClientDto"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "shipmentIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        }
+      },
+      "PaymentRequest": {
+        "type": "object",
+        "properties": {
+          "shipmentIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        }
+      },
+      "TinkoffPaymentResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "paymentURL": {
+            "type": "string"
+          },
+          "paymentId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    }
+  }
+}
