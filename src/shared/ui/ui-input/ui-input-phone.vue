@@ -2,11 +2,11 @@
   <ui-input
     v-model="componentModelValue"
     class="ui-input-phone"
-    mask="### ### ## ##"
-    placeholder="___ ___ __ __"
-    :error-text="props.errorText"
+    mask="##########"
+    :error-text="phoneState === 'error' ? 'Некорректный номер' : undefined"
     :is-disabled="props.isDisabled"
-    @update:model-value="emit('update:modelValue', $event.toString())"
+    @update:model-value="emit('update:modelValue', getDigits($event.toString()))"
+    @blur="checkPhone"
   >
     <slot name="default" />
 
@@ -21,7 +21,14 @@
       </slot>
     </template>
     <template #after>
-      <slot name="input-after" />
+      <slot name="input-after">
+        <ui-icon
+          v-if="phoneState === 'success'"
+          name="checkmark-circle"
+          color="additional-green"
+          size="20px"
+        />
+      </slot>
     </template>
   </ui-input>
 </template>
@@ -29,6 +36,9 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 
+import { PHONE_LENGTH } from '@/shared/config';
+import { getDigits } from '@/shared/lib';
+import { UiIcon } from '@/shared/ui/ui-icon';
 import { UiTypography } from '@/shared/ui/ui-typography';
 
 import UiInput from './ui-input.vue';
@@ -42,12 +52,10 @@ defineSlots<{
 const props = withDefaults(
   defineProps<{
     modelValue?: string;
-    errorText?: string;
     isDisabled?: boolean;
   }>(),
   {
     modelValue: '',
-    errorText: undefined,
   },
 );
 
@@ -56,6 +64,13 @@ const emit = defineEmits<{
 }>();
 
 const componentModelValue = ref(props.modelValue);
+
+type PhoneState = 'rest' | 'error' | 'success';
+const phoneState = ref<PhoneState>('rest');
+
+const checkPhone = () => {
+  phoneState.value = getDigits(componentModelValue.value).length === PHONE_LENGTH ? 'success' : 'error';
+};
 
 watch(
   () => props.modelValue,

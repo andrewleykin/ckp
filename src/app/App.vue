@@ -1,4 +1,5 @@
 <template>
+  <notifications />
   <Suspense>
     <component :is="layoutComponent"></component>
   </Suspense>
