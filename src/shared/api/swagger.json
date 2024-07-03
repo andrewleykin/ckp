@@ -93,16 +93,16 @@
           "simcard-controller"
         ],
         "operationId": "register",
-        "parameters": [
-          {
-            "name": "registrationRequest",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/RegistrationRequest"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
             }
-          }
-        ],
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -147,6 +147,29 @@
         }
       }
     },
+    "/api/v1/payment/manual": {
+      "post": {
+        "tags": [
+          "manual-payment-controller"
+        ],
+        "operationId": "payManually",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/v1/payment/tinkoff/{paymentId}/confirm": {
       "get": {
         "tags": [
@@ -175,17 +198,28 @@
   "components": {
     "schemas": {
       "SimIccModel": {
+        "required": [
+          "iccLastFourDigits",
+          "simNumber"
+        ],
         "type": "object",
         "properties": {
           "simNumber": {
+            "maxLength": 11,
+            "minLength": 11,
             "type": "string"
           },
           "iccLastFourDigits": {
+            "maxLength": 4,
+            "minLength": 4,
             "type": "string"
           }
         }
       },
       "SimValidationRequest": {
+        "required": [
+          "simcards"
+        ],
         "type": "object",
         "properties": {
           "simcards": {
@@ -306,6 +340,15 @@
         }
       },
       "ClientDto": {
+        "required": [
+          "accountableName",
+          "accountablePhoneNumber",
+          "address",
+          "bossName",
+          "email",
+          "inn",
+          "name"
+        ],
         "type": "object",
         "properties": {
           "name": {
@@ -318,6 +361,8 @@
             "type": "string"
           },
           "accountablePhoneNumber": {
+            "maxLength": 11,
+            "minLength": 11,
             "type": "string"
           },
           "email": {
@@ -325,10 +370,20 @@
           },
           "inn": {
             "type": "string"
+          },
+          "kpp": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
           }
         }
       },
       "RegistrationRequest": {
+        "required": [
+          "client",
+          "simcards"
+        ],
         "type": "object",
         "properties": {
           "simcards": {
@@ -355,6 +410,10 @@
         }
       },
       "PaymentRequest": {
+        "required": [
+          "salesman",
+          "shipmentIds"
+        ],
         "type": "object",
         "properties": {
           "shipmentIds": {
@@ -363,6 +422,9 @@
               "type": "integer",
               "format": "int64"
             }
+          },
+          "salesman": {
+            "type": "string"
           }
         }
       },

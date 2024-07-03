@@ -10,12 +10,20 @@
  */
 
 export interface SimIccModel {
-  simNumber?: string;
-  iccLastFourDigits?: string;
+  /**
+   * @minLength 11
+   * @maxLength 11
+   */
+  simNumber: string;
+  /**
+   * @minLength 4
+   * @maxLength 4
+   */
+  iccLastFourDigits: string;
 }
 
 export interface SimValidationRequest {
-  simcards?: SimIccModel[];
+  simcards: SimIccModel[];
 }
 
 export interface PartnerView {
@@ -71,17 +79,23 @@ export interface BlockSimcardDto {
 }
 
 export interface ClientDto {
-  name?: string;
-  bossName?: string;
-  accountableName?: string;
-  accountablePhoneNumber?: string;
-  email?: string;
-  inn?: string;
+  name: string;
+  bossName: string;
+  accountableName: string;
+  /**
+   * @minLength 11
+   * @maxLength 11
+   */
+  accountablePhoneNumber: string;
+  email: string;
+  inn: string;
+  kpp?: string;
+  address: string;
 }
 
 export interface RegistrationRequest {
-  simcards?: SimIccModel[];
-  client?: ClientDto;
+  simcards: SimIccModel[];
+  client: ClientDto;
 }
 
 export interface RegistrationResponse {
@@ -89,7 +103,8 @@ export interface RegistrationResponse {
 }
 
 export interface PaymentRequest {
-  shipmentIds?: number[];
+  shipmentIds: number[];
+  salesman: string;
 }
 
 export interface TinkoffPaymentResponse {
@@ -110,13 +125,11 @@ export type ReplaceData = any;
 
 export type BlockData = any;
 
-export interface RegisterParams {
-  registrationRequest: RegistrationRequest;
-}
-
 export type RegisterData = RegistrationResponse;
 
 export type PayTinkoffData = TinkoffPaymentResponse;
+
+export type PayManuallyData = any;
 
 export interface ConfirmTinkoffParams {
   paymentId: string;

@@ -13,7 +13,7 @@ import {
   BlockData,
   BlockSimcardDto,
   RegisterData,
-  RegisterParams,
+  RegistrationRequest,
   ReplaceData,
   ReplaceSimcardDto,
   SimValidationRequest,
@@ -74,11 +74,12 @@ export class SimcardController<SecurityDataType = unknown> extends HttpClient<Se
    * @name Register
    * @request POST:/api/v1/simcard/register
    */
-  register = (query: RegisterParams, params: RequestParams = {}) =>
+  register = (data: RegistrationRequest, params: RequestParams = {}) =>
     this.request<RegisterData, any>({
       path: `/api/v1/simcard/register`,
       method: 'POST',
-      query: query,
+      body: data,
+      type: ContentType.Json,
       ...params,
     });
 }
