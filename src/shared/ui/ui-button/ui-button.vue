@@ -27,7 +27,7 @@ const props = withDefaults(
     size?: UiButtonSize;
   }>(),
   {
-    size: 'small',
+    size: 'large',
   },
 );
 
