@@ -6,6 +6,7 @@ export enum RouteName {
   REPLACE = 'replace',
   BLOCK = 'block',
   PAYMENT = 'payment',
+  PAYMENT_SUCCESS = 'payment-success',
   TERMS = 'terms',
 }
 
@@ -21,5 +22,6 @@ export const readableRouteName = readableEnum<RouteName>({
   [RouteName.REPLACE]: 'Замена SIM карт',
   [RouteName.BLOCK]: 'Блокировка SIM карт',
   [RouteName.PAYMENT]: 'Оплата SIM карт',
+  [RouteName.PAYMENT_SUCCESS]: 'Оплата завершена',
   [RouteName.TERMS]: 'Договор оферты',
 });

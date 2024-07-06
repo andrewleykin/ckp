@@ -5,6 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { blockRoute } from '@/pages/block';
 import { homeRoute } from '@/pages/home';
 import { paymentRoute } from '@/pages/payment';
+import { paymentSuccessRoute } from '@/pages/payment-success';
 import { registrationRoute } from '@/pages/registration';
 import { replaceRoute } from '@/pages/replace';
 import { termsRoute } from '@/pages/terms';
@@ -22,6 +23,7 @@ export const routes: RouteRecordRaw[] = [
   paymentRoute,
   replaceRoute,
   termsRoute,
+  paymentSuccessRoute,
 ];
 
 export const withRouter = (app: App): void => {
