@@ -22,6 +22,7 @@ export const typographyColors = [
   'white',
   'additional-red',
   'additional-blue',
+  'additional-dark-blue',
   'additional-green',
 ] as const;
 export type UiTypographyColor = (typeof typographyColors)[number];

@@ -1,9 +1,6 @@
 <template>
   <div class="payment-block">
-    <a
-      class="payment-block__link"
-      :href="props.paymentUrl"
-    >
+    <a :href="props.paymentUrl">
       <ui-button>Оплатить сейчас</ui-button>
     </a>
     <ui-typography variant="Body4">или</ui-typography>
@@ -43,10 +40,6 @@ const props = defineProps<{
   display: flex;
   align-items: center;
   gap: 42px;
-}
-
-.payment-block__link {
-  text-decoration: none;
 }
 
 .payment-block__link-input {

@@ -28,23 +28,20 @@ export interface SimValidationRequest {
 
 export interface PartnerView {
   /** @format int64 */
-  id?: number;
-  name?: string;
-  defaultPaymentType?: PartnerViewDefaultPaymentTypeEnum;
+  id: number;
+  name: string;
+  defaultPaymentType: PartnerViewDefaultPaymentTypeEnum;
   /** @format date-time */
-  createdDate?: string;
-  inn?: string;
-  kpp?: string;
-  address?: string;
+  createdDate: string;
 }
 
 export interface SimErrorModel {
-  simNumber?: string;
-  reason?: string;
+  simNumber: string;
+  reason: string;
 }
 
 export interface SimValidationResponse {
-  valid?: boolean;
+  valid: boolean;
   simcardErrors?: SimErrorModel[];
   error?: string;
   partner?: PartnerView;
@@ -100,7 +97,7 @@ export interface RegistrationRequest {
 }
 
 export interface RegistrationResponse {
-  shipmentIds?: number[];
+  shipmentIds: number[];
 }
 
 export interface PaymentRequest {
@@ -108,7 +105,7 @@ export interface PaymentRequest {
 }
 
 export interface TinkoffPaymentResponse {
-  success?: boolean;
+  success: boolean;
   paymentURL?: string;
   /** @format int64 */
   paymentId?: number;
@@ -116,13 +113,13 @@ export interface TinkoffPaymentResponse {
 
 export interface ShipmentPriceView {
   /** @format int64 */
-  id?: number;
+  id: number;
   /** @format int64 */
-  simcardId?: number;
+  simcardId: number;
   /** @format int64 */
   paymentId?: number;
   /** @format int64 */
-  price?: number;
+  price: number;
 }
 
 export enum PartnerViewDefaultPaymentTypeEnum {

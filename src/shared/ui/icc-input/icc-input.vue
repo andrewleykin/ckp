@@ -8,20 +8,15 @@
       v-if="props.isShowLabel"
       #default
     >
-      Код ICC
-      <ui-icon
-        v-tooltip="'Уникальный серийный номер SIM-карты'"
-        name="info"
-        size="16px"
-        color="gray"
-      />
+      <icc-label />
     </template>
   </ui-input>
 </template>
 
 <script setup lang="ts">
-import { UiIcon } from '@/shared/ui/ui-icon';
 import { UiInput } from '@/shared/ui/ui-input';
+
+import IccLabel from './icc-label.vue';
 
 const modelValue = defineModel<string>({ required: true });
 

@@ -26,7 +26,7 @@
         variant="Body2"
         color="black"
       >
-        {{ props.totalPrice }}
+        {{ totalPrice }}
       </ui-typography>
     </div>
     <span class="divider" />
@@ -41,21 +41,26 @@
         variant="Body2"
         color="black"
       >
-        {{ props.durationOfService }}
+        {{ durationOfService }}
       </ui-typography>
     </div>
   </ui-card>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
+import { DEFAULT_PERIOD_MONTH, DEFAULT_PRICE_ONE_SIM } from '@/shared/config';
+import { separateThousand } from '@/shared/lib';
 import { UiCard } from '@/shared/ui/ui-card';
 import { UiTypography } from '@/shared/ui/ui-typography';
 
 const props = defineProps<{
   count: number;
-  totalPrice: number;
-  durationOfService: string;
 }>();
+
+const totalPrice = computed(() => `${separateThousand(props.count * DEFAULT_PRICE_ONE_SIM)} рублей`);
+const durationOfService = computed(() => `${DEFAULT_PERIOD_MONTH} месяцев`);
 </script>
 
 <style lang="scss" scoped>

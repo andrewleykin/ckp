@@ -2,11 +2,13 @@
   <div class="ui-layout">
     <aside class="sidebar">
       <div class="logo">
-        <ui-icon
-          name="logo"
-          width="262px"
-          height="91px"
-        />
+        <router-link to="/">
+          <ui-icon
+            name="logo"
+            width="262px"
+            height="91px"
+          />
+        </router-link>
       </div>
 
       <div class="menu">
@@ -104,7 +106,6 @@ const menuList: { text: string; link: RouteName; icon: UiIconNames }[] = [
     gap: 12px;
 
     .menu-item {
-      text-decoration: none;
       border-radius: 6px;
       --text-color: var(--text-gray);
 

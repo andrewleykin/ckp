@@ -8,7 +8,7 @@
             variant="Body4"
             component="span"
           >
-            8 800 550-05-87
+            {{ DOMAIN_PHONE }}
           </ui-typography>
           либо через
           <ui-typography
@@ -22,7 +22,7 @@
             variant="Body4"
             component="span"
           >
-            +7 922 131-30-05.
+            {{ DOMAIN_WHATSAPP_PHONE }}.
           </ui-typography>
         </ui-typography>
       </li>
@@ -33,9 +33,9 @@
             variant="Body4"
             color="additional-blue"
             component="a"
-            href="mailto:aap@accept-s.ru"
+            :href="`mailto:${DOMAIN_EMAIL}`"
           >
-            aap@accept-s.ru</ui-typography
+            {{ DOMAIN_EMAIL }}</ui-typography
           >, вложив в письмо платежный документ.
         </ui-typography>
       </li>
@@ -50,6 +50,7 @@
 </template>
 
 <script setup lang="ts">
+import { DOMAIN_EMAIL, DOMAIN_PHONE, DOMAIN_WHATSAPP_PHONE } from '@/shared/config';
 import { UiCard } from '@/shared/ui/ui-card';
 import { UiTypography } from '@/shared/ui/ui-typography';
 </script>
@@ -57,10 +58,6 @@ import { UiTypography } from '@/shared/ui/ui-typography';
 <style lang="scss" scoped>
 .info-card {
   max-width: 700px;
-
-  a {
-    text-decoration: none;
-  }
 
   ul {
     display: flex;

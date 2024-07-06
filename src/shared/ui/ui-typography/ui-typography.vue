@@ -109,6 +109,10 @@ const props = withDefaults(
   color: var(--additional-blue);
 }
 
+.additional-dark-blue {
+  color: var(--additional-dark-blue);
+}
+
 .additional-green {
   color: var(--additional-green);
 }

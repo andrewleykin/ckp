@@ -16,7 +16,7 @@
       data-test-id="ui-checkbox__input"
       @change="onChangeCheckbox"
     />
-    <ui-typography>
+    <ui-typography variant="Body4">
       <slot />
     </ui-typography>
   </label>

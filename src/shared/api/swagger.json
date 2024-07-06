@@ -300,6 +300,12 @@
         }
       },
       "PartnerView": {
+        "required": [
+          "createdDate",
+          "defaultPaymentType",
+          "id",
+          "name"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -319,19 +325,14 @@
           "createdDate": {
             "type": "string",
             "format": "date-time"
-          },
-          "inn": {
-            "type": "string"
-          },
-          "kpp": {
-            "type": "string"
-          },
-          "address": {
-            "type": "string"
           }
         }
       },
       "SimErrorModel": {
+        "required": [
+          "reason",
+          "simNumber"
+        ],
         "type": "object",
         "properties": {
           "simNumber": {
@@ -343,6 +344,9 @@
         }
       },
       "SimValidationResponse": {
+        "required": [
+          "valid"
+        ],
         "type": "object",
         "properties": {
           "valid": {
@@ -470,6 +474,9 @@
         }
       },
       "RegistrationResponse": {
+        "required": [
+          "shipmentIds"
+        ],
         "type": "object",
         "properties": {
           "shipmentIds": {
@@ -497,6 +504,9 @@
         }
       },
       "TinkoffPaymentResponse": {
+        "required": [
+          "success"
+        ],
         "type": "object",
         "properties": {
           "success": {
@@ -512,6 +522,11 @@
         }
       },
       "ShipmentPriceView": {
+        "required": [
+          "id",
+          "price",
+          "simcardId"
+        ],
         "type": "object",
         "properties": {
           "id": {
