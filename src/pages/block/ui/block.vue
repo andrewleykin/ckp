@@ -1,5 +1,5 @@
 <template>
-  <main :class="{ success: isSuccess }">
+  <main>
     <ui-success
       v-if="isSuccess"
       title="Номер заблокирован"
@@ -9,8 +9,8 @@
       <div class="group">
         <ui-input-phone v-model="formData.number">Номер телефона</ui-input-phone>
         <ui-input v-model="formData.inn">ИНН клиента</ui-input>
-        <ui-button @click="acceptBlock">Подтвердить</ui-button>
       </div>
+      <ui-button @click="acceptBlock">Подтвердить</ui-button>
     </template>
   </main>
 </template>
@@ -69,12 +69,6 @@ const acceptBlock = async () => {
 </script>
 
 <style lang="scss" scoped>
-.success {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .group {
   display: grid;
   grid-template-columns: 200px 200px;

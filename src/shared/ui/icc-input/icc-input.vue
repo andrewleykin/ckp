@@ -2,6 +2,7 @@
   <ui-input
     v-model="modelValue"
     mask="####"
+    class="icc-input"
   >
     <template
       v-if="props.isShowLabel"
@@ -33,3 +34,9 @@ const props = withDefaults(
   },
 );
 </script>
+
+<style lang="scss" scoped>
+.icc-input {
+  max-width: 100px;
+}
+</style>
