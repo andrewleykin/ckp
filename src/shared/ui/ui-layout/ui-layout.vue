@@ -142,7 +142,9 @@ const menuList: { text: string; link: RouteName; icon: UiIconNames }[] = [
 .content {
   flex: auto;
   & > :deep(main) {
-    padding: 32px 54px;
+    --main-padding-y: 32px;
+    --main-padding-x: 54px;
+    padding: var(--main-padding-y) var(--main-padding-x);
     background-color: var(--background-gray);
     height: 100%;
   }

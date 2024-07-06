@@ -3,7 +3,7 @@
     v-model="componentModelValue"
     class="ui-input-phone"
     mask="##########"
-    :error-text="phoneState === 'error' ? 'Некорректный номер' : undefined"
+    :error-text="props.errorText ?? phoneState === 'error' ? 'Некорректный номер' : undefined"
     :is-disabled="props.isDisabled"
     @update:model-value="emit('update:modelValue', getDigits($event.toString()))"
     @blur="checkPhone"
@@ -23,7 +23,7 @@
     <template #after>
       <slot name="input-after">
         <ui-icon
-          v-if="phoneState === 'success'"
+          v-if="!props.errorText && phoneState === 'success'"
           name="checkmark-circle"
           color="additional-green"
           size="20px"
@@ -53,9 +53,11 @@ const props = withDefaults(
   defineProps<{
     modelValue?: string;
     isDisabled?: boolean;
+    errorText?: string;
   }>(),
   {
     modelValue: '',
+    errorText: '',
   },
 );
 
@@ -79,3 +81,11 @@ watch(
   },
 );
 </script>
+
+<style lang="scss" scoped>
+.ui-input-phone {
+  :deep(.input-wrapper) {
+    max-width: 220px;
+  }
+}
+</style>

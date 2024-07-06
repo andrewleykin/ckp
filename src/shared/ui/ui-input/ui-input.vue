@@ -150,6 +150,13 @@ watch(
       --border-color: var(--divider-dark-gray);
     }
   }
+
+  &[readonly] {
+    --border-color: var(--divider-dark-gray);
+    --text-color: var(--text-light-gray);
+    cursor: default;
+    pointer-events: none;
+  }
 }
 
 .label {

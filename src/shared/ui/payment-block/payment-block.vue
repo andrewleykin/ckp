@@ -6,7 +6,6 @@
     <ui-typography variant="Body4">или</ui-typography>
     <ui-input
       :model-value="props.paymentUrl"
-      readonly
       class="payment-block__link-input"
     >
       Скопировать ссылку на оплату

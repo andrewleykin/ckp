@@ -1,0 +1,97 @@
+<template>
+  <div class="step-wrapper">
+    <ui-typography variant="HeadlineH4">1. Информация о юр.лице/ИП</ui-typography>
+    <div class="group">
+      <ui-input
+        v-model="client.inn"
+        placeholder="Текст"
+      >
+        ИНН
+      </ui-input>
+      <ui-input
+        v-model="client.kpp"
+        placeholder="Текст"
+      >
+        КПП (не обязательно)
+      </ui-input>
+      <ui-input
+        v-model="client.name"
+        class="name"
+      >
+        Наименование юр.лица / ИП
+      </ui-input>
+      <ui-input
+        v-model="client.address"
+        class="address"
+      >
+        Юр. Адрес
+      </ui-input>
+    </div>
+    <ui-button @click="nextStep">Продолжить</ui-button>
+    <div
+      v-if="slots['price-card']"
+      class="price-card"
+    >
+      <slot name="price-card" />
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useNotification } from '@kyvg/vue3-notification';
+
+import type { ClientDto } from '@/shared/api';
+import { UiButton } from '@/shared/ui/ui-button';
+import { UiInput } from '@/shared/ui/ui-input';
+import { UiTypography } from '@/shared/ui/ui-typography';
+
+const client = defineModel<ClientDto>('client', { required: true });
+
+const slots = defineSlots<{
+  'price-card'?: () => void;
+}>();
+
+const emit = defineEmits<{
+  'next-step': [];
+}>();
+
+const { notify } = useNotification();
+
+const nextStep = () => {
+  if (!client.value.inn || !client.value.name || !client.value.address) {
+    notify({
+      title: 'Некорректные данные',
+      type: 'warn',
+    });
+
+    return;
+  }
+
+  emit('next-step');
+};
+</script>
+
+<style lang="scss" scoped>
+.step-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+}
+
+.group {
+  display: grid;
+  grid-template-columns: 366px 366px;
+  gap: 14px 18px;
+  margin-bottom: 8px;
+
+  .name,
+  .address {
+    grid-column: 1 / 3;
+  }
+}
+
+.price-card {
+  margin-top: auto;
+}
+</style>

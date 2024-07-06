@@ -29,7 +29,7 @@
             <ui-icon
               :style="{ cursor: 'pointer' }"
               name="calendar"
-              @click="togglePopover"
+              @click="getIconEvents(togglePopover)"
             />
           </slot>
         </template>
@@ -137,7 +137,7 @@ const onChangeInputRange = (value: string) => {
 };
 
 const getInputEvents = (inputEvents: object | { start: object; end: object }) => {
-  if (attributes.disabled || attributes.readonly) return;
+  if (attributes.disabled !== undefined || attributes.readonly !== undefined) return {};
 
   if ('start' in inputEvents && 'end' in inputEvents) {
     return {
@@ -152,6 +152,16 @@ const getInputEvents = (inputEvents: object | { start: object; end: object }) =>
   }
 
   return inputEvents;
+};
+
+const getIconEvents = (togglePopover: () => void) => {
+  if (attributes.disabled !== undefined || attributes.readonly !== undefined) return {};
+
+  return {
+    click: () => {
+      togglePopover();
+    },
+  };
 };
 
 watch(
