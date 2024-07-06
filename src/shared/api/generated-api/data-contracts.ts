@@ -96,6 +96,7 @@ export interface ClientDto {
 export interface RegistrationRequest {
   simcards: SimIccModel[];
   client: ClientDto;
+  salesman?: string;
 }
 
 export interface RegistrationResponse {
@@ -104,7 +105,6 @@ export interface RegistrationResponse {
 
 export interface PaymentRequest {
   shipmentIds: number[];
-  salesman: string;
 }
 
 export interface TinkoffPaymentResponse {
@@ -112,6 +112,17 @@ export interface TinkoffPaymentResponse {
   paymentURL?: string;
   /** @format int64 */
   paymentId?: number;
+}
+
+export interface ShipmentPriceView {
+  /** @format int64 */
+  id?: number;
+  /** @format int64 */
+  simcardId?: number;
+  /** @format int64 */
+  paymentId?: number;
+  /** @format int64 */
+  price?: number;
 }
 
 export enum PartnerViewDefaultPaymentTypeEnum {
@@ -130,6 +141,15 @@ export type RegisterData = RegistrationResponse;
 export type PayTinkoffData = TinkoffPaymentResponse;
 
 export type PayManuallyData = any;
+
+export interface FindByParams {
+  phoneNumber: string;
+  inn: string;
+}
+
+export type FindByData = ShipmentPriceView;
+
+export type FindByIdData = ShipmentPriceView;
 
 export interface ConfirmTinkoffParams {
   paymentId: string;
