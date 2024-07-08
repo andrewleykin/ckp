@@ -10,4 +10,5 @@ export enum ClientInfoEnterStep {
   ACCOUNTABLE_INFO,
   ADDITIONAL_INFO,
   PAYMENT,
+  MANUAL_SUCCESS,
 }

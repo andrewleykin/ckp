@@ -1,47 +1,42 @@
 <template>
-  <ui-success
-    v-if="isSuccessManualRegistration"
-    title="Регистрация успешно завершена"
+  <div
+    v-if="currentStep !== ClientInfoEnterStep.MANUAL_SUCCESS"
+    class="header"
   >
-    <info-card />
-  </ui-success>
-  <template v-else>
-    <div class="header">
-      <ui-steps
-        v-model:current-step="currentStep"
-        :steps="getSteps(stepList)"
-        :is-changeable="false"
-        class="steps"
-        :class="{ 'is-tinkoff': isTinkoffPaymentType }"
-      />
-    </div>
-    <component
-      :is="stepComponent"
-      v-model:client="registrationRequest.client"
-      v-model:salesman="registrationRequest.salesman"
-      :partner="partner"
-      @next-step="nextStep"
+    <ui-steps
+      v-model:current-step="currentStep"
+      :steps="getSteps(stepList)"
+      :is-changeable="false"
+      class="steps"
+      :class="{ 'is-tinkoff': isTinkoffPaymentType }"
+    />
+  </div>
+  <component
+    :is="stepComponent"
+    v-model:client="registrationRequest.client"
+    v-model:salesman="registrationRequest.salesman"
+    :partner="partner"
+    @next-step="nextStep"
+  >
+    <template
+      v-if="isTinkoffPaymentType"
+      #price-card
     >
-      <template
-        v-if="isTinkoffPaymentType"
-        #price-card
-      >
-        <price-card
-          class="price-card"
-          :count="registrationRequest.simcards.length"
-        />
-      </template>
-      <template
-        v-if="isTinkoffPaymentType && currentStep === ClientInfoEnterStep.PAYMENT"
-        #payment-block
-      >
-        <payment-block
-          v-if="paymentUrl"
-          :payment-url="paymentUrl"
-        />
-      </template>
-    </component>
-  </template>
+      <price-card
+        class="price-card"
+        :count="registrationRequest.simcards.length"
+      />
+    </template>
+    <template
+      v-if="isTinkoffPaymentType && currentStep === ClientInfoEnterStep.PAYMENT"
+      #payment-block
+    >
+      <payment-block
+        v-if="paymentUrl"
+        :payment-url="paymentUrl"
+      />
+    </template>
+  </component>
 </template>
 
 <script setup lang="ts">
@@ -51,11 +46,9 @@ import { computed, defineAsyncComponent, markRaw, ref, watch } from 'vue';
 
 import type { PartnerView, RegistrationRequest, SimIccModel } from '@/shared/api';
 import { api, PartnerViewDefaultPaymentTypeEnum } from '@/shared/api';
-import { InfoCard } from '@/shared/ui/info-card';
 import { PaymentBlock } from '@/shared/ui/payment-block';
 import { PriceCard } from '@/shared/ui/price-card';
 import { UiSteps } from '@/shared/ui/ui-steps';
-import { UiSuccess } from '@/shared/ui/ui-success';
 
 import { getClientInfoEnterSteps, getSteps } from '../config';
 import { ClientInfoEnterStep } from '../types';
@@ -67,7 +60,6 @@ const props = defineProps<{
 
 const { notify } = useNotification();
 
-const isSuccessManualRegistration = ref(false);
 const paymentUrl = ref('');
 const registrationRequest = ref<RegistrationRequest>({
   simcards: [],
@@ -93,6 +85,7 @@ const stepComponent = computed(() => {
     [ClientInfoEnterStep.ACCOUNTABLE_INFO]: markRaw(defineAsyncComponent(() => import('./steps/accountable-info.vue'))),
     [ClientInfoEnterStep.ADDITIONAL_INFO]: markRaw(defineAsyncComponent(() => import('./steps/additional-info.vue'))),
     [ClientInfoEnterStep.PAYMENT]: markRaw(defineAsyncComponent(() => import('./steps/payment.vue'))),
+    [ClientInfoEnterStep.MANUAL_SUCCESS]: markRaw(defineAsyncComponent(() => import('./steps/manual-success.vue'))),
   };
 
   return stepComponentMap[currentStep.value];
@@ -108,17 +101,21 @@ const isManualPaymentType = computed(() => {
 
 const register = async () => {
   try {
-    const { data } = await api.simcard.register(registrationRequest.value);
+    const {
+      data: { shipmentIds },
+    } = await api.simcard.register(registrationRequest.value);
 
     if (isTinkoffPaymentType.value) {
-      const { data: dataPayTinkoff } = await api.tinkoffPayment.payTinkoff({ shipmentIds: data.shipmentIds });
-      paymentUrl.value = dataPayTinkoff.paymentURL ?? '';
+      const {
+        data: { paymentURL },
+      } = await api.tinkoffPayment.payTinkoff({ shipmentIds });
+      paymentUrl.value = paymentURL ?? '';
       currentStep.value = ClientInfoEnterStep.PAYMENT;
     }
 
     if (isManualPaymentType.value) {
-      await api.manualPayment.payManually({ shipmentIds: data.shipmentIds });
-      isSuccessManualRegistration.value = true;
+      await api.manualPayment.payManually({ shipmentIds });
+      currentStep.value = ClientInfoEnterStep.MANUAL_SUCCESS;
     }
   } catch (error) {
     if (error instanceof AxiosError) {

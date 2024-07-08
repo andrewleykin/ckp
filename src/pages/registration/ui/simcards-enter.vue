@@ -37,6 +37,7 @@
           <ui-input-phone
             v-model="phone.simNumber"
             :error-text="phone.errorText"
+            @update:model-value="phone.errorText = ''"
           />
           <icc-input
             v-model="phone.iccLastFourDigits"

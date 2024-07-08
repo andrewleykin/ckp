@@ -3,7 +3,7 @@
     v-model="componentModelValue"
     class="ui-input-phone"
     mask="##########"
-    :error-text="props.errorText ?? phoneState === 'error' ? 'Некорректный номер' : undefined"
+    :error-text="props.errorText || phoneState === 'error' ? 'Некорректный номер' : undefined"
     :is-disabled="props.isDisabled"
     @update:model-value="emit('update:modelValue', getDigits($event.toString()))"
     @blur="checkPhone"
