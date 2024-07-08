@@ -14,7 +14,7 @@ export default defineConfig(({mode}) => {
       },
     },
     plugins: [svgLoader({svgo: false}),vue()],
-    base: env.NODE_ENV ? '/ckp/' : '/'
+    base: env.NODE_ENV === 'production' ? '/ckp/' : '/'
   }
 
 })
