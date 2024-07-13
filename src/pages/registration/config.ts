@@ -38,6 +38,7 @@ const readableStep = readableEnum<ClientInfoEnterStep>({
   [ClientInfoEnterStep.ACCOUNTABLE_INFO]: 'Ответственное лицо',
   [ClientInfoEnterStep.ADDITIONAL_INFO]: 'Доп. информация',
   [ClientInfoEnterStep.PAYMENT]: 'Оплата',
+  [ClientInfoEnterStep.MANUAL_SUCCESS]: 'Успешная регистрация',
 });
 
 export const getSteps = (stepsWithoutText: ClientInfoEnterStep[]): UiStep[] =>

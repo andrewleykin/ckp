@@ -16,6 +16,7 @@
     v-model:client="registrationRequest.client"
     v-model:salesman="registrationRequest.salesman"
     :partner="partner"
+    :is-loading="isLoading"
     @next-step="nextStep"
   >
     <template
@@ -60,6 +61,7 @@ const props = defineProps<{
 
 const { notify } = useNotification();
 
+const isLoading = ref(false);
 const paymentUrl = ref('');
 const registrationRequest = ref<RegistrationRequest>({
   simcards: [],
@@ -100,6 +102,7 @@ const isManualPaymentType = computed(() => {
 });
 
 const register = async () => {
+  isLoading.value = true;
   try {
     const {
       data: { shipmentIds },
@@ -111,11 +114,13 @@ const register = async () => {
       } = await api.tinkoffPayment.payTinkoff({ shipmentIds });
       paymentUrl.value = paymentURL ?? '';
       currentStep.value = ClientInfoEnterStep.PAYMENT;
+      return;
     }
 
     if (isManualPaymentType.value) {
       await api.manualPayment.payManually({ shipmentIds });
       currentStep.value = ClientInfoEnterStep.MANUAL_SUCCESS;
+      return;
     }
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -125,6 +130,8 @@ const register = async () => {
         type: 'error',
       });
     }
+  } finally {
+    isLoading.value = false;
   }
 };
 

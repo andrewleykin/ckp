@@ -5,12 +5,22 @@
       title="Номер заблокирован"
     />
     <template v-else>
-      <ui-typography variant="HeadlineH3">Блокировка выданного номера</ui-typography>
-      <div class="group">
+      <ui-typography
+        variant="HeadlineH3"
+        class="mb-24"
+      >
+        Блокировка выданного номера
+      </ui-typography>
+      <div class="group mb-32">
         <ui-input-phone v-model="formData.number">Номер телефона</ui-input-phone>
         <ui-input v-model="formData.inn">ИНН клиента</ui-input>
       </div>
-      <ui-button @click="acceptBlock">Подтвердить</ui-button>
+      <ui-button
+        :is-loading="isLoading"
+        @click="acceptBlock"
+      >
+        Подтвердить
+      </ui-button>
     </template>
   </main>
 </template>
@@ -73,7 +83,5 @@ const acceptBlock = async () => {
   display: grid;
   grid-template-columns: 200px 200px;
   gap: 14px;
-  margin-top: 24px;
-  margin-bottom: 32px;
 }
 </style>

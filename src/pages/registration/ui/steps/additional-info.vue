@@ -1,7 +1,12 @@
 <template>
   <div class="step-wrapper">
-    <ui-typography variant="HeadlineH4">3. Дополнительная информация</ui-typography>
-    <div class="group">
+    <ui-typography
+      variant="HeadlineH4"
+      class="mb-24"
+    >
+      3. Дополнительная информация
+    </ui-typography>
+    <div class="group mb-32">
       <ui-input v-model="salesman">Сотрудник принявший заявление</ui-input>
       <ui-input-date
         :model-value="props.partner.createdDate"
@@ -17,7 +22,12 @@
         Наименование партнера
       </ui-input>
     </div>
-    <ui-button @click="nextStep">Продолжить</ui-button>
+    <ui-button
+      :is-loading="props.isLoading"
+      @click="nextStep"
+    >
+      Продолжить
+    </ui-button>
     <div
       v-if="slots['price-card']"
       class="price-card"
@@ -39,6 +49,7 @@ const salesman = defineModel<string>('salesman', { required: true });
 
 const props = defineProps<{
   partner: PartnerView;
+  isLoading: boolean;
 }>();
 
 const slots = defineSlots<{
@@ -69,7 +80,6 @@ const nextStep = () => {
 .step-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 24px;
   height: 100%;
 }
 
@@ -77,7 +87,6 @@ const nextStep = () => {
   display: grid;
   grid-template-columns: 366px 163px;
   gap: 14px 18px;
-  margin-bottom: 8px;
 
   .name {
     grid-column: 1 / 3;

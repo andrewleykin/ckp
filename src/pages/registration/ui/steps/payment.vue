@@ -2,14 +2,22 @@
   <div class="step-wrapper">
     <ui-typography
       variant="HeadlineH4"
-      class="title"
+      class="mb-24"
     >
       4. Оплата
     </ui-typography>
-    <ui-typography variant="Body4">
+    <ui-typography
+      variant="Body4"
+      class="mb-24"
+    >
       Необходимо оплатить сим-карты в течение 5 дней или они будут заблокированы.
     </ui-typography>
-    <slot name="price-card" />
+    <div
+      v-if="slots['price-card']"
+      class="mb-24"
+    >
+      <slot name="price-card" />
+    </div>
     <slot name="payment-block" />
   </div>
 </template>
@@ -17,7 +25,7 @@
 <script setup lang="ts">
 import { UiTypography } from '@/shared/ui/ui-typography';
 
-defineSlots<{
+const slots = defineSlots<{
   'price-card'?: () => void;
   'payment-block'?: () => void;
 }>();
@@ -27,10 +35,6 @@ defineSlots<{
 .step-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-}
-
-.title {
-  margin-bottom: 8px;
+  gap: 32px;
 }
 </style>

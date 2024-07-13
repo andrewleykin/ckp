@@ -1,7 +1,12 @@
 <template>
   <div class="step-wrapper">
-    <ui-typography variant="HeadlineH4">1. Информация о юр.лице/ИП</ui-typography>
-    <div class="group">
+    <ui-typography
+      variant="HeadlineH4"
+      class="mb-24"
+    >
+      1. Информация о юр.лице/ИП
+    </ui-typography>
+    <div class="group mb-32">
       <ui-input
         v-model="client.inn"
         placeholder="Текст"
@@ -75,7 +80,6 @@ const nextStep = () => {
 .step-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 24px;
   height: 100%;
 }
 
@@ -83,7 +87,6 @@ const nextStep = () => {
   display: grid;
   grid-template-columns: 366px 366px;
   gap: 14px 18px;
-  margin-bottom: 8px;
 
   .name,
   .address {

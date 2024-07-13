@@ -27,6 +27,7 @@ a {
   --text-light-gray: #ADADAD;
   --text-white: #FFFFFF;
   --button-black: #3D3D3D;
+  --button-middle-black: #646363;
   --button-middle-gray: #F1F1F1;
   --button-white: #FFFFFF;
   --additional-blue: #2291FF;
@@ -49,4 +50,12 @@ a {
 
 .v-popper__popper {
   font-family: 'Poppins', sans-serif;
+}
+
+.mb-32 {
+  margin-bottom: 32px;
+}
+
+.mb-24 {
+  margin-bottom: 24px;
 }

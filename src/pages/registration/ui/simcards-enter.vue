@@ -1,6 +1,11 @@
 <template>
   <div class="simcards-enter">
-    <ui-typography variant="HeadlineH3">Заполнение данных SIM карт</ui-typography>
+    <ui-typography
+      variant="HeadlineH3"
+      class="mb-24"
+    >
+      Заполнение данных SIM карт
+    </ui-typography>
     <div class="group">
       <div class="phone-list">
         <div class="phone-block">
@@ -70,7 +75,7 @@
     </div>
     <ui-checkbox
       v-model="isAcceptOffer"
-      class="checkbox"
+      class="checkbox mb-32"
     >
       Вы даёте подтверждение, что ознакомлены с условиями предоставления услуг (<ui-typography
         variant="Body4"
@@ -111,6 +116,7 @@ const emit = defineEmits<{
 
 const { notify } = useNotification();
 
+const isLoading = ref(false);
 const phoneList = ref<ClientSimIccModel[]>([
   {
     id: 0,
@@ -133,6 +139,8 @@ const deletePhoneById = (id: ClientSimIccModel['id']) => {
 };
 
 const validateSim = async () => {
+  isLoading.value = true;
+
   try {
     const simcards = phoneList.value.map(convertClientSimIccModelToBackend);
 
@@ -191,6 +199,8 @@ const validateSim = async () => {
         type: 'error',
       });
     }
+  } finally {
+    isLoading.value = false;
   }
 };
 </script>
@@ -199,7 +209,6 @@ const validateSim = async () => {
 .simcards-enter {
   display: flex;
   flex-direction: column;
-  gap: 24px;
   height: 100%;
   max-width: 870px;
 }
@@ -253,9 +262,5 @@ const validateSim = async () => {
   &:hover {
     color: var(--additional-blue);
   }
-}
-
-.checkbox {
-  margin-bottom: 8px;
 }
 </style>

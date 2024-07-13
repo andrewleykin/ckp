@@ -1,7 +1,12 @@
 <template>
   <main>
-    <ui-typography variant="HeadlineH3">Оплата SIM карт</ui-typography>
-    <div class="group">
+    <ui-typography
+      variant="HeadlineH3"
+      class="mb-24"
+    >
+      Оплата SIM карт
+    </ui-typography>
+    <div class="group mb-32">
       <ui-input-phone
         v-model="formData.phoneNumber"
         :readonly="Boolean(paymentUrl)"
@@ -21,6 +26,7 @@
     />
     <ui-button
       v-else
+      :is-loading="isLoading"
       @click="acceptPayment"
     >
       Подтвердить
@@ -111,7 +117,5 @@ const acceptPayment = async () => {
   display: grid;
   grid-template-columns: 200px 200px;
   gap: 14px;
-  margin-top: 24px;
-  margin-bottom: 32px;
 }
 </style>

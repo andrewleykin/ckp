@@ -1,7 +1,12 @@
 <template>
   <div class="step-wrapper">
-    <ui-typography variant="HeadlineH4">2. Информация об ответственном лице</ui-typography>
-    <div class="group">
+    <ui-typography
+      variant="HeadlineH4"
+      class="mb-24"
+    >
+      2. Информация об ответственном лице
+    </ui-typography>
+    <div class="group mb-32">
       <ui-input v-model="client.accountableName">ФИО ответственного за sim карту</ui-input>
       <ui-input-phone v-model="client.accountablePhoneNumber">
         Номер телефона ответственного за sim карту
@@ -57,7 +62,6 @@ const nextStep = () => {
 .step-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 24px;
   height: 100%;
 }
 
@@ -65,7 +69,6 @@ const nextStep = () => {
   display: grid;
   grid-template-columns: 366px 366px;
   gap: 14px 18px;
-  margin-bottom: 8px;
 }
 
 .price-card {

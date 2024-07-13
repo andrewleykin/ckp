@@ -5,14 +5,24 @@
       title="Номер заблокирован"
     />
     <template v-else>
-      <ui-typography variant="HeadlineH3">Замена выданного номера</ui-typography>
-      <div class="group">
+      <ui-typography
+        variant="HeadlineH3"
+        class="mb-24"
+      >
+        Замена выданного номера
+      </ui-typography>
+      <div class="group mb-32">
         <ui-input-phone v-model="formData.number">Номер телефона</ui-input-phone>
         <ui-input v-model="formData.inn">ИНН клиента</ui-input>
         <ui-input-phone v-model="formData.newNumber">Новый номер</ui-input-phone>
         <icc-input v-model="formData.iccEnd" />
       </div>
-      <ui-button @click="saveNewPhone">Подтвердить</ui-button>
+      <ui-button
+        :is-loading="isLoading"
+        @click="saveNewPhone"
+      >
+        Подтвердить
+      </ui-button>
     </template>
   </main>
 </template>
@@ -83,7 +93,5 @@ const saveNewPhone = async () => {
   display: grid;
   grid-template-columns: 200px 200px;
   gap: 14px;
-  margin-top: 24px;
-  margin-bottom: 32px;
 }
 </style>
