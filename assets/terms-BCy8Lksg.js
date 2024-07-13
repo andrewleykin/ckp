@@ -1,0 +1,1 @@
+import{U as e}from"./ui-typography-sGRbuZHE.js";import{d as a,c as t,b as r,w as o,u as n,o as s,f as c}from"./index-B8XN-YQF.js";const l=a({__name:"terms",setup(m){return(p,i)=>(s(),t("main",null,[r(n(e),{variant:"HeadlineH3"},{default:o(()=>[c("Договор оферты")]),_:1})]))}});export{l as default};
