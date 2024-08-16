@@ -1,0 +1,1 @@
+import{_ as o}from"./ui-typography-Df9E3_dG.js";import{o as r,c as s,E as t}from"./index-YL4AAcl0.js";const a={},c={class:"ui-card"};function n(e,d){return r(),s("div",c,[t(e.$slots,"default",{},void 0,!0)])}const f=o(a,[["render",n],["__scopeId","data-v-255aad67"]]);export{f as U};
