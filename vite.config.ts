@@ -12,7 +12,8 @@ export default defineConfig(({mode}) => {
       },
     },
     plugins: [svgLoader({svgo: false}),vue()],
-    base: mode === 'production' ? '/ckp/' : '/'
+    // Для сборки в github
+    // base: mode === 'production' ? '/ckp/' : '/'
   }
 
 })
